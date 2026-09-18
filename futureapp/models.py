@@ -44,7 +44,6 @@ class CardSale(models.Model):
     time = models.TimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
-
         if self.transaction_type == 'Damage':
             self.price_per_card = 0
         else:
@@ -56,4 +55,3 @@ class CardSale(models.Model):
 
     def __str__(self):
         return f"{self.operator_name} - {self.transaction_type} - {self.card_quantity}"
-# Create your models here.

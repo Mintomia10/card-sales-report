@@ -1,218 +1,410 @@
-```html
-<!-- =========================
-     PROFESSIONAL 3D EFFECT
-     ADD ONLY - EXISTING CODE UNCHANGED
-========================= -->
+```html {% load static %}
 
-<style>
-  /* 3D floating background */
-  body {
-    perspective: 1200px;
-  }
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  body::before,
-  body::after {
-    content: "";
-    position: fixed;
-    width: 180px;
-    height: 180px;
-    border-radius: 35px;
-    pointer-events: none;
-    z-index: -1;
-    opacity: 0.12;
-    filter: blur(1px);
-  }
+    <title>Card Management System | Sales Report</title>
 
-  body::before {
-    top: 15%;
-    left: -70px;
-    background: linear-gradient(135deg, #2563eb, #7c3aed);
-    transform: rotateX(55deg) rotateY(25deg) rotateZ(25deg);
-    animation: floating3D 8s ease-in-out infinite;
-  }
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
 
-  body::after {
-    right: -70px;
-    bottom: 12%;
-    background: linear-gradient(135deg, #0ea5e9, #2563eb);
-    transform: rotateX(55deg) rotateY(-25deg) rotateZ(-25deg);
-    animation: floating3DReverse 10s ease-in-out infinite;
-  }
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
 
-  @keyframes floating3D {
-    0%,
-    100% {
-      transform: translateY(0) rotateX(55deg) rotateY(25deg) rotateZ(25deg);
-    }
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
 
-    50% {
-      transform: translateY(-35px) rotateX(65deg) rotateY(40deg) rotateZ(35deg);
-    }
-  }
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background: #f4f7fb;
+        color: #212529;
+      }
 
-  @keyframes floating3DReverse {
-    0%,
-    100% {
-      transform: translateY(0) rotateX(55deg) rotateY(-25deg) rotateZ(-25deg);
-    }
+      .top-header {
+        background: #0d6efd;
+        color: white;
+        padding: 18px 0;
+      }
 
-    50% {
-      transform: translateY(35px) rotateX(65deg) rotateY(-40deg) rotateZ(-35deg);
-    }
-  }
+      .top-header h4 {
+        margin: 0;
+        font-weight: 700;
+      }
 
-  /* 3D Hero effect */
-  .hero {
-    transform-style: preserve-3d;
-    transition:
-      transform 0.5s ease,
-      box-shadow 0.5s ease;
-  }
+      .hero {
+        background: white;
+        padding: 30px 0;
+        border-bottom: 1px solid #e5e7eb;
+      }
 
-  .hero:hover {
-    transform: translateY(-5px) rotateX(1deg) rotateY(-1deg);
-    box-shadow:
-      0 25px 60px rgba(37, 99, 235, 0.3),
-      0 10px 30px rgba(0, 0, 0, 0.1);
-  }
+      .hero h1 {
+        font-weight: 800;
+        margin-bottom: 8px;
+      }
 
-  /* 3D summary cards */
-  .summary-card {
-    transform-style: preserve-3d;
-    transition:
-      transform 0.4s ease,
-      box-shadow 0.4s ease;
-  }
+      .hero p {
+        color: #6c757d;
+        margin-bottom: 0;
+      }
 
-  .summary-card:hover {
-    transform: translateY(-10px) rotateX(4deg) rotateY(-3deg);
-    box-shadow: 0 25px 45px rgba(15, 23, 42, 0.15);
-  }
+      .summary-card {
+        background: white;
+        border-radius: 15px;
+        padding: 22px;
+        border: 1px solid #e5e7eb;
+        height: 100%;
+      }
 
-  .summary-icon {
-    transform: translateZ(20px);
-    transition: transform 0.4s ease;
-  }
+      .summary-card .icon {
+        width: 45px;
+        height: 45px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #e7f1ff;
+        color: #0d6efd;
+        font-size: 22px;
+        margin-bottom: 12px;
+      }
 
-  .summary-card:hover .summary-icon {
-    transform: translateZ(35px) scale(1.08) rotate(-5deg);
-  }
+      .summary-card h2 {
+        font-weight: 800;
+        margin: 0;
+      }
 
-  /* 3D operator cards */
-  .operator-card {
-    transform-style: preserve-3d;
-    transition:
-      transform 0.4s ease,
-      box-shadow 0.4s ease;
-  }
+      .summary-card p {
+        color: #6c757d;
+        margin: 5px 0 0;
+      }
 
-  .operator-card:hover {
-    transform: translateY(-10px) rotateX(4deg) rotateY(3deg);
-    box-shadow: 0 25px 45px rgba(15, 23, 42, 0.15);
-  }
+      .main-card {
+        background: white;
+        border-radius: 15px;
+        border: 1px solid #e5e7eb;
+        padding: 25px;
+        margin-top: 25px;
+      }
 
-  .operator-avatar {
-    transform: translateZ(25px);
-    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.25);
-  }
+      .section-title {
+        font-weight: 700;
+        margin-bottom: 20px;
+      }
 
-  /* 3D main cards */
-  .main-card {
-    transform-style: preserve-3d;
-    transition:
-      transform 0.4s ease,
-      box-shadow 0.4s ease;
-  }
+      .form-control,
+      .form-select {
+        min-height: 45px;
+        border-radius: 10px;
+      }
 
-  .main-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 45px rgba(15, 23, 42, 0.11);
-  }
+      .btn-main {
+        min-height: 45px;
+        border-radius: 10px;
+        font-weight: 600;
+      }
 
-  /* 3D save button */
-  .save-btn {
-    transform-style: preserve-3d;
-    box-shadow: 0 7px 0 #1d4ed8;
-  }
+      table {
+        vertical-align: middle;
+      }
 
-  .save-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 0 #1d4ed8;
-  }
+      .badge-sale {
+        background: #d1e7dd;
+        color: #0f5132;
+      }
 
-  .save-btn:active {
-    transform: translateY(4px);
-    box-shadow: 0 3px 0 #1d4ed8;
-  }
+      .badge-replace {
+        background: #fff3cd;
+        color: #664d03;
+      }
 
-  /* Professional table depth */
-  .table-container {
-    border-radius: 15px;
-    transform-style: preserve-3d;
-  }
+      .badge-damage {
+        background: #f8d7da;
+        color: #842029;
+      }
 
-  .custom-table thead th {
-    box-shadow: inset 0 -2px 0 rgba(255, 255, 255, 0.08);
-  }
+      .table-responsive {
+        border-radius: 10px;
+      }
 
-  /* Company image 3D */
-  .report-image {
-    transform-style: preserve-3d;
-    transition:
-      transform 0.5s ease,
-      box-shadow 0.5s ease;
-    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.15);
-  }
+      footer {
+        text-align: center;
+        color: #6c757d;
+        padding: 30px 0;
+      }
 
-  .report-image:hover {
-    transform: perspective(900px) rotateY(-5deg) rotateX(2deg) translateY(-5px);
-    box-shadow: 20px 25px 50px rgba(15, 23, 42, 0.2);
-  }
+      @media (max-width: 768px) {
+        .hero {
+          padding: 22px 0;
+        }
 
-  /* Smooth page appearance */
-  body {
-    animation: pageAppear 0.8s ease-out;
-  }
+        .hero h1 {
+          font-size: 28px;
+        }
 
-  @keyframes pageAppear {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
+        .main-card {
+          padding: 18px;
+        }
 
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+        table {
+          font-size: 14px;
+        }
+      }
+    </style>
+  </head>
 
-  /* Mobile friendly */
-  @media (max-width: 768px) {
-    body::before,
-    body::after {
-      width: 110px;
-      height: 110px;
-      opacity: 0.08;
-    }
+  <body>
+    <!-- Header -->
+    <header class="top-header">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <h4>
+              <i class="bi bi-credit-card-2-front"></i>
+              Card Management System
+            </h4>
+            <small>Sales & Replacement Management</small>
+          </div>
 
-    .hero:hover,
-    .summary-card:hover,
-    .operator-card:hover,
-    .main-card:hover,
-    .report-image:hover {
-      transform: translateY(-3px);
-    }
-  }
+          <a href="/admin/" class="btn btn-light btn-sm">
+            <i class="bi bi-person-gear"></i>
+            Admin
+          </a>
+        </div>
+      </div>
+    </header>
 
-  /* Respect user's reduced-motion setting */
-  @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-    }
-  }
-</style>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <h1>Card Sales Report</h1>
+        <p>
+          Monitor daily card sales, replacements, damage records and operator
+          performance from one dashboard.
+        </p>
+      </div>
+    </section>
+
+    <!-- Main -->
+    <div class="container pb-4">
+      <!-- Summary -->
+      <div class="row g-3 mt-2">
+        <div class="col-md-6">
+          <div class="summary-card">
+            <div class="icon">
+              <i class="bi bi-credit-card"></i>
+            </div>
+
+            <h2>{{ total_cards|default:"0" }}</h2>
+            <p>Total Cards</p>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="summary-card">
+            <div class="icon">
+              <i class="bi bi-cash-stack"></i>
+            </div>
+
+            <h2>৳ {{ total_amount|default:"0" }}</h2>
+            <p>Total Amount</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add Card -->
+      <div class="main-card">
+        <h4 class="section-title">
+          <i class="bi bi-plus-circle"></i>
+          Add Card Transaction
+        </h4>
+
+        <form method="POST">
+          {% csrf_token %}
+
+          <div class="row g-3">
+            <!-- Operator -->
+            <div class="col-md-4">
+              <label class="form-label fw-semibold"> Operator </label>
+
+              <select name="operator_name" class="form-select" required>
+                <option value="">Select Operator</option>
+
+                <option value="MD. Minto Mia">MD. Minto Mia</option>
+
+                <option value="Sompa Rani">Sompa Rani</option>
+
+                <option value="Proxy Operator">Proxy Operator</option>
+              </select>
+            </div>
+
+            <!-- Transaction Type -->
+            <div class="col-md-4">
+              <label class="form-label fw-semibold"> Transaction Type </label>
+
+              <select name="transaction_type" class="form-select" required>
+                <option value="">Select Type</option>
+
+                <option value="Sale">Card Sale</option>
+
+                <option value="Replace">Replace</option>
+
+                <option value="Damage">Damage</option>
+              </select>
+            </div>
+
+            <!-- Quantity -->
+            <div class="col-md-4">
+              <label class="form-label fw-semibold"> Card Quantity </label>
+
+              <input
+                type="number"
+                name="card_quantity"
+                class="form-control"
+                min="1"
+                value="1"
+                required
+              />
+            </div>
+
+            <!-- Submit -->
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary btn-main w-100">
+                <i class="bi bi-plus-lg"></i>
+                Add Transaction
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Search -->
+      <div class="main-card">
+        <h4 class="section-title">
+          <i class="bi bi-search"></i>
+          Search Records
+        </h4>
+
+        <form method="GET">
+          <div class="row g-3">
+            <div class="col-md-10">
+              <input
+                type="text"
+                name="search"
+                value="{{ request.GET.search }}"
+                class="form-control"
+                placeholder="Search by operator name..."
+              />
+            </div>
+
+            <div class="col-md-2">
+              <button type="submit" class="btn btn-dark btn-main w-100">
+                Search
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Records -->
+      <div class="main-card">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h4 class="section-title mb-0">
+            <i class="bi bi-table"></i>
+            Transaction Records
+          </h4>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead class="table-light">
+              <tr>
+                <th>#</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Operator</th>
+                <th>Type</th>
+                <th>Quantity</th>
+                <th>Price/Card</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {% for record in records %}
+
+              <tr>
+                <td>{{ forloop.counter }}</td>
+
+                <td>{{ record.created_at|date:"d M Y" }}</td>
+
+                <td>{{ record.created_at|date:"h:i A" }}</td>
+
+                <td>
+                  <strong> {{ record.operator_name }} </strong>
+                </td>
+
+                <td>
+                  {% if record.transaction_type == "Sale" %}
+
+                  <span class="badge badge-sale"> Card Sale </span>
+
+                  {% elif record.transaction_type == "Replace" %}
+
+                  <span class="badge badge-replace"> Replace </span>
+
+                  {% else %}
+
+                  <span class="badge badge-damage"> Damage </span>
+
+                  {% endif %}
+                </td>
+
+                <td>{{ record.card_quantity }}</td>
+
+                <td>৳ {{ record.price_per_card }}</td>
+
+                <td>
+                  <strong> ৳ {{ record.total_amount }} </strong>
+                </td>
+              </tr>
+
+              {% empty %}
+
+              <tr>
+                <td colspan="8" class="text-center py-4">
+                  <i class="bi bi-inbox fs-3 d-block mb-2"></i>
+                  No records found.
+                </td>
+              </tr>
+
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <small> Card Management System © 2026 </small>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
 ```
